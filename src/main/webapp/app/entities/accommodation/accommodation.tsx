@@ -84,6 +84,9 @@ export const Accommodation = (props: IAccommodationProps) => {
                 <th>
                   <Translate contentKey="companyApp.accommodation.category">Category</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="companyApp.accommodation.location">Location</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -98,6 +101,9 @@ export const Accommodation = (props: IAccommodationProps) => {
                   <td>{accommodation.name}</td>
                   <td>{accommodation.hotelier}</td>
                   <td>{accommodation.category}</td>
+                  <td>
+                    {accommodation.location ? <Link to={`location/${accommodation.location.id}`}>{accommodation.location.id}</Link> : ''}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${accommodation.id}`} color="info" size="sm">

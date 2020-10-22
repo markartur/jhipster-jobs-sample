@@ -1,5 +1,6 @@
 package com.jhipsterdemo.company.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -7,8 +8,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A Accommodation.
@@ -33,7 +32,8 @@ public class Accommodation implements Serializable {
 
     @DBRef
     @Field("location")
-    private Set<Location> locations = new HashSet<>();
+    @JsonIgnoreProperties(value = "accommodations", allowSetters = true)
+    private Location location;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public String getId() {
@@ -83,29 +83,17 @@ public class Accommodation implements Serializable {
         this.category = category;
     }
 
-    public Set<Location> getLocations() {
-        return locations;
+    public Location getLocation() {
+        return location;
     }
 
-    public Accommodation locations(Set<Location> locations) {
-        this.locations = locations;
+    public Accommodation location(Location location) {
+        this.location = location;
         return this;
     }
 
-    public Accommodation addLocation(Location location) {
-        this.locations.add(location);
-        location.setAccommodation(this);
-        return this;
-    }
-
-    public Accommodation removeLocation(Location location) {
-        this.locations.remove(location);
-        location.setAccommodation(null);
-        return this;
-    }
-
-    public void setLocations(Set<Location> locations) {
-        this.locations = locations;
+    public void setLocation(Location location) {
+        this.location = location;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

@@ -7,6 +7,8 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { ILocation } from 'app/shared/model/location.model';
+import { getEntities as getLocations } from 'app/entities/location/location.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './accommodation.reducer';
 import { IAccommodation } from 'app/shared/model/accommodation.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -15,9 +17,10 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IAccommodationUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const AccommodationUpdate = (props: IAccommodationUpdateProps) => {
+  const [locationId, setLocationId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { accommodationEntity, loading, updating } = props;
+  const { accommodationEntity, locations, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/accommodation');
@@ -29,6 +32,8 @@ export const AccommodationUpdate = (props: IAccommodationUpdateProps) => {
     } else {
       props.getEntity(props.match.params.id);
     }
+
+    props.getLocations();
   }, []);
 
   useEffect(() => {
@@ -93,6 +98,21 @@ export const AccommodationUpdate = (props: IAccommodationUpdateProps) => {
                 </Label>
                 <AvField id="accommodation-category" type="text" name="category" />
               </AvGroup>
+              <AvGroup>
+                <Label for="accommodation-location">
+                  <Translate contentKey="companyApp.accommodation.location">Location</Translate>
+                </Label>
+                <AvInput id="accommodation-location" type="select" className="form-control" name="location.id">
+                  <option value="" key="0" />
+                  {locations
+                    ? locations.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/accommodation" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -115,6 +135,7 @@ export const AccommodationUpdate = (props: IAccommodationUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  locations: storeState.location.entities,
   accommodationEntity: storeState.accommodation.entity,
   loading: storeState.accommodation.loading,
   updating: storeState.accommodation.updating,
@@ -122,6 +143,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getLocations,
   getEntity,
   updateEntity,
   createEntity,

@@ -5,7 +5,7 @@ export interface IAccommodation {
   name?: string;
   hotelier?: string;
   category?: string;
-  locations?: ILocation[];
+  location?: ILocation;
 }
 
 export const defaultValue: Readonly<IAccommodation> = {};

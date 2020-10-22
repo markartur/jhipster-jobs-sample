@@ -1,6 +1,5 @@
 package com.jhipsterdemo.company.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,6 +8,8 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * not an ignored comment
@@ -41,8 +42,7 @@ public class Location implements Serializable {
 
     @DBRef
     @Field("accommodation")
-    @JsonIgnoreProperties(value = "locations", allowSetters = true)
-    private Accommodation accommodation;
+    private Set<Accommodation> accommodations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public String getId() {
@@ -118,17 +118,29 @@ public class Location implements Serializable {
         this.country = country;
     }
 
-    public Accommodation getAccommodation() {
-        return accommodation;
+    public Set<Accommodation> getAccommodations() {
+        return accommodations;
     }
 
-    public Location accommodation(Accommodation accommodation) {
-        this.accommodation = accommodation;
+    public Location accommodations(Set<Accommodation> accommodations) {
+        this.accommodations = accommodations;
         return this;
     }
 
-    public void setAccommodation(Accommodation accommodation) {
-        this.accommodation = accommodation;
+    public Location addAccommodation(Accommodation accommodation) {
+        this.accommodations.add(accommodation);
+        accommodation.setLocation(this);
+        return this;
+    }
+
+    public Location removeAccommodation(Accommodation accommodation) {
+        this.accommodations.remove(accommodation);
+        accommodation.setLocation(null);
+        return this;
+    }
+
+    public void setAccommodations(Set<Accommodation> accommodations) {
+        this.accommodations = accommodations;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

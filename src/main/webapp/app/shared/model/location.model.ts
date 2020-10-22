@@ -8,7 +8,7 @@ export interface ILocation {
   city?: string;
   stateProvince?: string;
   country?: ICountry;
-  accommodation?: IAccommodation;
+  accommodations?: IAccommodation[];
 }
 
 export const defaultValue: Readonly<ILocation> = {};

@@ -9,8 +9,6 @@ import { IRootState } from 'app/shared/reducers';
 
 import { ICountry } from 'app/shared/model/country.model';
 import { getEntities as getCountries } from 'app/entities/country/country.reducer';
-import { IAccommodation } from 'app/shared/model/accommodation.model';
-import { getEntities as getAccommodations } from 'app/entities/accommodation/accommodation.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './location.reducer';
 import { ILocation } from 'app/shared/model/location.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -20,10 +18,9 @@ export interface ILocationUpdateProps extends StateProps, DispatchProps, RouteCo
 
 export const LocationUpdate = (props: ILocationUpdateProps) => {
   const [countryId, setCountryId] = useState('0');
-  const [accommodationId, setAccommodationId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { locationEntity, countries, accommodations, loading, updating } = props;
+  const { locationEntity, countries, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/location');
@@ -37,7 +34,6 @@ export const LocationUpdate = (props: ILocationUpdateProps) => {
     }
 
     props.getCountries();
-    props.getAccommodations();
   }, []);
 
   useEffect(() => {
@@ -123,21 +119,6 @@ export const LocationUpdate = (props: ILocationUpdateProps) => {
                     : null}
                 </AvInput>
               </AvGroup>
-              <AvGroup>
-                <Label for="location-accommodation">
-                  <Translate contentKey="companyApp.location.accommodation">Accommodation</Translate>
-                </Label>
-                <AvInput id="location-accommodation" type="select" className="form-control" name="accommodation.id">
-                  <option value="" key="0" />
-                  {accommodations
-                    ? accommodations.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
-                    : null}
-                </AvInput>
-              </AvGroup>
               <Button tag={Link} id="cancel-save" to="/location" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -161,7 +142,6 @@ export const LocationUpdate = (props: ILocationUpdateProps) => {
 
 const mapStateToProps = (storeState: IRootState) => ({
   countries: storeState.country.entities,
-  accommodations: storeState.accommodation.entities,
   locationEntity: storeState.location.entity,
   loading: storeState.location.loading,
   updating: storeState.location.updating,
@@ -170,7 +150,6 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getCountries,
-  getAccommodations,
   getEntity,
   updateEntity,
   createEntity,

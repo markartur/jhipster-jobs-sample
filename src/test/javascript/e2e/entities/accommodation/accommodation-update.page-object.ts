@@ -10,6 +10,7 @@ export default class AccommodationUpdatePage {
   nameInput: ElementFinder = element(by.css('input#accommodation-name'));
   hotelierInput: ElementFinder = element(by.css('input#accommodation-hotelier'));
   categoryInput: ElementFinder = element(by.css('input#accommodation-category'));
+  locationSelect: ElementFinder = element(by.css('select#accommodation-location'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -39,6 +40,22 @@ export default class AccommodationUpdatePage {
     return this.categoryInput.getAttribute('value');
   }
 
+  async locationSelectLastOption() {
+    await this.locationSelect.all(by.tagName('option')).last().click();
+  }
+
+  async locationSelectOption(option) {
+    await this.locationSelect.sendKeys(option);
+  }
+
+  getLocationSelect() {
+    return this.locationSelect;
+  }
+
+  async getLocationSelectedOption() {
+    return this.locationSelect.element(by.css('option:checked')).getText();
+  }
+
   async save() {
     await this.saveButton.click();
   }
@@ -61,6 +78,7 @@ export default class AccommodationUpdatePage {
     await waitUntilDisplayed(this.saveButton);
     await this.setCategoryInput('category');
     expect(await this.getCategoryInput()).to.match(/category/);
+    await this.locationSelectLastOption();
     await this.save();
     await waitUntilHidden(this.saveButton);
     expect(await isVisible(this.saveButton)).to.be.false;

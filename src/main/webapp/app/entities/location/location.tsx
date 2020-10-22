@@ -90,9 +90,6 @@ export const Location = (props: ILocationProps) => {
                 <th>
                   <Translate contentKey="companyApp.location.country">Country</Translate>
                 </th>
-                <th>
-                  <Translate contentKey="companyApp.location.accommodation">Accommodation</Translate>
-                </th>
                 <th />
               </tr>
             </thead>
@@ -109,13 +106,6 @@ export const Location = (props: ILocationProps) => {
                   <td>{location.city}</td>
                   <td>{location.stateProvince}</td>
                   <td>{location.country ? <Link to={`country/${location.country.id}`}>{location.country.id}</Link> : ''}</td>
-                  <td>
-                    {location.accommodation ? (
-                      <Link to={`accommodation/${location.accommodation.id}`}>{location.accommodation.id}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${location.id}`} color="info" size="sm">

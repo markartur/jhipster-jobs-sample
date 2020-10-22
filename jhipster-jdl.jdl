@@ -97,7 +97,7 @@ relationship OneToMany {
 	*/
 	Employee{department},
     
-    Accommodation to Location
+    Location to Accommodation
 }
 
 relationship ManyToOne {

@@ -28,11 +28,10 @@
       "ownerSide": true
     },
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "one-to-many",
       "otherEntityName": "accommodation",
       "otherEntityRelationshipName": "location",
-      "relationshipName": "accommodation",
-      "otherEntityField": "id"
+      "relationshipName": "accommodation"
     }
   ],
   "changelogDate": "20201018222122",

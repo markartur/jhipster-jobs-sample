@@ -16,10 +16,11 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-many",
+      "relationshipType": "many-to-one",
       "otherEntityName": "location",
       "otherEntityRelationshipName": "accommodation",
-      "relationshipName": "location"
+      "relationshipName": "location",
+      "otherEntityField": "id"
     }
   ],
   "changelogDate": "20201022044850",

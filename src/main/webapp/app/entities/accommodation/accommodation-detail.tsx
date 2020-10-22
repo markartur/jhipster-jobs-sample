@@ -43,6 +43,10 @@ export const AccommodationDetail = (props: IAccommodationDetailProps) => {
             </span>
           </dt>
           <dd>{accommodationEntity.category}</dd>
+          <dt>
+            <Translate contentKey="companyApp.accommodation.location">Location</Translate>
+          </dt>
+          <dd>{accommodationEntity.location ? accommodationEntity.location.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/accommodation" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}
