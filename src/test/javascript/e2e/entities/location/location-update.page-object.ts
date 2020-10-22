@@ -12,6 +12,7 @@ export default class LocationUpdatePage {
   cityInput: ElementFinder = element(by.css('input#location-city'));
   stateProvinceInput: ElementFinder = element(by.css('input#location-stateProvince'));
   countrySelect: ElementFinder = element(by.css('select#location-country'));
+  accommodationSelect: ElementFinder = element(by.css('select#location-accommodation'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -65,6 +66,22 @@ export default class LocationUpdatePage {
     return this.countrySelect.element(by.css('option:checked')).getText();
   }
 
+  async accommodationSelectLastOption() {
+    await this.accommodationSelect.all(by.tagName('option')).last().click();
+  }
+
+  async accommodationSelectOption(option) {
+    await this.accommodationSelect.sendKeys(option);
+  }
+
+  getAccommodationSelect() {
+    return this.accommodationSelect;
+  }
+
+  async getAccommodationSelectedOption() {
+    return this.accommodationSelect.element(by.css('option:checked')).getText();
+  }
+
   async save() {
     await this.saveButton.click();
   }
@@ -91,6 +108,7 @@ export default class LocationUpdatePage {
     await this.setStateProvinceInput('stateProvince');
     expect(await this.getStateProvinceInput()).to.match(/stateProvince/);
     await this.countrySelectLastOption();
+    await this.accommodationSelectLastOption();
     await this.save();
     await waitUntilHidden(this.saveButton);
     expect(await isVisible(this.saveButton)).to.be.false;

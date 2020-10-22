@@ -1,4 +1,5 @@
 import { ICountry } from 'app/shared/model/country.model';
+import { IAccommodation } from 'app/shared/model/accommodation.model';
 
 export interface ILocation {
   id?: string;
@@ -7,6 +8,7 @@ export interface ILocation {
   city?: string;
   stateProvince?: string;
   country?: ICountry;
+  accommodation?: IAccommodation;
 }
 
 export const defaultValue: Readonly<ILocation> = {};

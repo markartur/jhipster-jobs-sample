@@ -44,6 +44,10 @@ import job, {
 import jobHistory, {
   JobHistoryState
 } from 'app/entities/job-history/job-history.reducer';
+// prettier-ignore
+import accommodation, {
+  AccommodationState
+} from 'app/entities/accommodation/accommodation.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -65,6 +69,7 @@ export interface IRootState {
   readonly employee: EmployeeState;
   readonly job: JobState;
   readonly jobHistory: JobHistoryState;
+  readonly accommodation: AccommodationState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -88,6 +93,7 @@ const rootReducer = combineReducers<IRootState>({
   employee,
   job,
   jobHistory,
+  accommodation,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 });

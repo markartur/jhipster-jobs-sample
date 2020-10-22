@@ -26,6 +26,13 @@
       "relationshipName": "country",
       "otherEntityField": "id",
       "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "accommodation",
+      "otherEntityRelationshipName": "location",
+      "relationshipName": "accommodation",
+      "otherEntityField": "id"
     }
   ],
   "changelogDate": "20201018222122",

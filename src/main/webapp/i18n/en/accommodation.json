@@ -1,0 +1,26 @@
+{
+  "companyApp": {
+    "accommodation": {
+      "home": {
+        "title": "Accommodations",
+        "createLabel": "Create a new Accommodation",
+        "createOrEditLabel": "Create or edit a Accommodation",
+        "search": "Search for Accommodation",
+        "notFound": "No Accommodations found"
+      },
+      "created": "A new Accommodation is created with identifier {{ param }}",
+      "updated": "A Accommodation is updated with identifier {{ param }}",
+      "deleted": "A Accommodation is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Accommodation {{ id }}?"
+      },
+      "detail": {
+        "title": "Accommodation"
+      },
+      "name": "Name",
+      "hotelier": "Hotelier",
+      "category": "Category",
+      "location": "Location"
+    }
+  }
+}

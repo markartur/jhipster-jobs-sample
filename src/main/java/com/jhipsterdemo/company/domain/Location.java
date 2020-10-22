@@ -1,5 +1,6 @@
 package com.jhipsterdemo.company.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -37,6 +38,11 @@ public class Location implements Serializable {
     @DBRef
     @Field("country")
     private Country country;
+
+    @DBRef
+    @Field("accommodation")
+    @JsonIgnoreProperties(value = "locations", allowSetters = true)
+    private Accommodation accommodation;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public String getId() {
@@ -110,6 +116,19 @@ public class Location implements Serializable {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Accommodation getAccommodation() {
+        return accommodation;
+    }
+
+    public Location accommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
+        return this;
+    }
+
+    public void setAccommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

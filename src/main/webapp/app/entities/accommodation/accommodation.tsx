@@ -7,13 +7,13 @@ import { Translate, translate, ICrudSearchAction, ICrudGetAllAction } from 'reac
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getSearchEntities, getEntities } from './location.reducer';
-import { ILocation } from 'app/shared/model/location.model';
+import { getSearchEntities, getEntities } from './accommodation.reducer';
+import { IAccommodation } from 'app/shared/model/accommodation.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface ILocationProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface IAccommodationProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export const Location = (props: ILocationProps) => {
+export const Accommodation = (props: IAccommodationProps) => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
@@ -33,15 +33,15 @@ export const Location = (props: ILocationProps) => {
 
   const handleSearch = event => setSearch(event.target.value);
 
-  const { locationList, match, loading } = props;
+  const { accommodationList, match, loading } = props;
   return (
     <div>
-      <h2 id="location-heading">
-        <Translate contentKey="companyApp.location.home.title">Locations</Translate>
+      <h2 id="accommodation-heading">
+        <Translate contentKey="companyApp.accommodation.home.title">Accommodations</Translate>
         <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
           <FontAwesomeIcon icon="plus" />
           &nbsp;
-          <Translate contentKey="companyApp.location.home.createLabel">Create new Location</Translate>
+          <Translate contentKey="companyApp.accommodation.home.createLabel">Create new Accommodation</Translate>
         </Link>
       </h2>
       <Row>
@@ -54,7 +54,7 @@ export const Location = (props: ILocationProps) => {
                   name="search"
                   value={search}
                   onChange={handleSearch}
-                  placeholder={translate('companyApp.location.home.search')}
+                  placeholder={translate('companyApp.accommodation.home.search')}
                 />
                 <Button className="input-group-addon">
                   <FontAwesomeIcon icon="search" />
@@ -68,7 +68,7 @@ export const Location = (props: ILocationProps) => {
         </Col>
       </Row>
       <div className="table-responsive">
-        {locationList && locationList.length > 0 ? (
+        {accommodationList && accommodationList.length > 0 ? (
           <Table responsive>
             <thead>
               <tr>
@@ -76,61 +76,43 @@ export const Location = (props: ILocationProps) => {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="companyApp.location.streetAddress">Street Address</Translate>
+                  <Translate contentKey="companyApp.accommodation.name">Name</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="companyApp.location.postalCode">Postal Code</Translate>
+                  <Translate contentKey="companyApp.accommodation.hotelier">Hotelier</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="companyApp.location.city">City</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="companyApp.location.stateProvince">State Province</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="companyApp.location.country">Country</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="companyApp.location.accommodation">Accommodation</Translate>
+                  <Translate contentKey="companyApp.accommodation.category">Category</Translate>
                 </th>
                 <th />
               </tr>
             </thead>
             <tbody>
-              {locationList.map((location, i) => (
+              {accommodationList.map((accommodation, i) => (
                 <tr key={`entity-${i}`}>
                   <td>
-                    <Button tag={Link} to={`${match.url}/${location.id}`} color="link" size="sm">
-                      {location.id}
+                    <Button tag={Link} to={`${match.url}/${accommodation.id}`} color="link" size="sm">
+                      {accommodation.id}
                     </Button>
                   </td>
-                  <td>{location.streetAddress}</td>
-                  <td>{location.postalCode}</td>
-                  <td>{location.city}</td>
-                  <td>{location.stateProvince}</td>
-                  <td>{location.country ? <Link to={`country/${location.country.id}`}>{location.country.id}</Link> : ''}</td>
-                  <td>
-                    {location.accommodation ? (
-                      <Link to={`accommodation/${location.accommodation.id}`}>{location.accommodation.id}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
+                  <td>{accommodation.name}</td>
+                  <td>{accommodation.hotelier}</td>
+                  <td>{accommodation.category}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${location.id}`} color="info" size="sm">
+                      <Button tag={Link} to={`${match.url}/${accommodation.id}`} color="info" size="sm">
                         <FontAwesomeIcon icon="eye" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
-                      <Button tag={Link} to={`${match.url}/${location.id}/edit`} color="primary" size="sm">
+                      <Button tag={Link} to={`${match.url}/${accommodation.id}/edit`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
                       </Button>
-                      <Button tag={Link} to={`${match.url}/${location.id}/delete`} color="danger" size="sm">
+                      <Button tag={Link} to={`${match.url}/${accommodation.id}/delete`} color="danger" size="sm">
                         <FontAwesomeIcon icon="trash" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.delete">Delete</Translate>
@@ -145,7 +127,7 @@ export const Location = (props: ILocationProps) => {
         ) : (
           !loading && (
             <div className="alert alert-warning">
-              <Translate contentKey="companyApp.location.home.notFound">No Locations found</Translate>
+              <Translate contentKey="companyApp.accommodation.home.notFound">No Accommodations found</Translate>
             </div>
           )
         )}
@@ -154,9 +136,9 @@ export const Location = (props: ILocationProps) => {
   );
 };
 
-const mapStateToProps = ({ location }: IRootState) => ({
-  locationList: location.entities,
-  loading: location.loading,
+const mapStateToProps = ({ accommodation }: IRootState) => ({
+  accommodationList: accommodation.entities,
+  loading: accommodation.loading,
 });
 
 const mapDispatchToProps = {
@@ -167,4 +149,4 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Location);
+export default connect(mapStateToProps, mapDispatchToProps)(Accommodation);

@@ -1,12 +1,4 @@
 
-entity Region {
-	regionName String
-}
-
-entity Country {
-	countryName String
-}
-
 // an ignored comment
 /** not an ignored comment */
 entity Location {
@@ -15,6 +7,22 @@ entity Location {
 	city String,
 	stateProvince String
 }
+
+entity Accommodation {
+	name String,
+    hotelier String,
+    category String
+}
+
+entity Region {
+	regionName String
+}
+
+entity Country {
+	countryName String
+}
+
+
 
 entity Department {
 	departmentName String required
@@ -87,7 +95,9 @@ relationship OneToMany {
 	/**
 	* Another side of the same relationship
 	*/
-	Employee{department}
+	Employee{department},
+    
+    Accommodation to Location
 }
 
 relationship ManyToOne {

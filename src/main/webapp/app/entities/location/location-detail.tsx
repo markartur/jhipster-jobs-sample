@@ -53,6 +53,10 @@ export const LocationDetail = (props: ILocationDetailProps) => {
             <Translate contentKey="companyApp.location.country">Country</Translate>
           </dt>
           <dd>{locationEntity.country ? locationEntity.country.id : ''}</dd>
+          <dt>
+            <Translate contentKey="companyApp.location.accommodation">Accommodation</Translate>
+          </dt>
+          <dd>{locationEntity.accommodation ? locationEntity.accommodation.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/location" replace color="info">
           <FontAwesomeIcon icon="arrow-left" />{' '}
